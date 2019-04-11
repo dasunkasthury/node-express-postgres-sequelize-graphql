@@ -9,9 +9,30 @@
   "author": "me",
   "license": "ISC",
   "dependencies": {
+    "apollo-boost": "^0.3.1",
+    "apollo-server-express": "^2.4.8",
+    "babel-preset-node": "^5.1.1",
+    "body-parser": "^1.18.3",
     "express": "^4.16.4",
     "express-graphql": "^0.7.1",
     "graphql": "^14.2.1",
-    "lodash": "^4.17.11"
+    "graphql-tag": "^2.10.1",
+    "lodash": "^4.17.11",
+    "mysql2": "^1.6.5",
+    "pg": "^7.9.0",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^5.3.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-stage-3": "^6.24.1",
+    "faker": "^4.1.0",
+    "lodash.random": "^3.2.0",
+    "lodash.times": "^4.3.2",
+    "nodemon": "^1.18.11",
+    "sequelize-cli": "^5.4.0",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0"
   }
 }
