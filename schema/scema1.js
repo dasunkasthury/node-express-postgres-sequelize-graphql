@@ -1,5 +1,6 @@
 const graphql = require("graphql");
 const _ = require("lodash");
+const axiyo = require("axios")
 
 const {
   GraphQLObjectType,
@@ -16,29 +17,51 @@ const Db = require("../db")
 const Post = new GraphQLObjectType({
   name: "Post",
   description: "Blog post",
-  fields() {
+  fields: () => {
     return {
       title: {
         type: GraphQLString,
-        resolve(post) {
-          return post.title;
+        resolve(parent, args, ctx, info) {
+          return parent.title;
         }
       },
       content: {
         type: GraphQLString,
-        resolve(post) {
-          return post.content;
+        resolve(parent, args, ctx, info) {
+          return parent.content;
         }
       },
       person: {
         type: Person,
-        resolve(post) {
-          return post.getPerson();
+        resolve(parent, args, ctx, info) {
+          return parent.getPerson();
         }
       }
     };
   }
 });
+
+const flights = new GraphQLObjectType({
+  name: "flights",
+  fields: ()=>{
+    return{
+      flight_number: {
+        type: GraphQLString,
+        resolve(parent, args, ctx, info){
+          return parent.flight_number
+        }
+      },
+      mission_name: {
+        type: GraphQLString,
+        resolve(parent, args, ctx, info){
+          return parent.mission_name
+        }
+      }
+    }
+    
+    rocket_name: {type: GraphQLString}
+  }
+})
 
 const Person = new GraphQLObjectType({
   name: "Person",
@@ -47,32 +70,32 @@ const Person = new GraphQLObjectType({
     return {
       id: {
         type: GraphQLInt,
-        resolve(person) {
-          return person.id;
+        resolve(parent, args, ctx, info) {
+          return parent.id;
         }
       },
       firstName: {
         type: GraphQLString,
-        resolve(person) {
-          return person.firstName;
+        resolve(parent, args, ctx, info) {
+          return parent.firstName;
         }
       },
       lastName: {
         type: GraphQLString,
-        resolve(person) {
-          return person.lastName;
+        resolve(parent, args, ctx, info) {
+          return parent.lastName;
         }
       },
       email: {
         type: GraphQLString,
-        resolve(person) {
-          return person.email;
+        resolve(parent, args, ctx, info) {
+          return parent.email;
         }
       },
       posts: {
         type: new GraphQLList(Post),
-        resolve(person) {
-          return person.getPosts();
+        resolve(parent, args, ctx, info) {
+          return parent.getPosts();
         }
       }
     };
@@ -94,14 +117,20 @@ const Query = new GraphQLObjectType({
             type: GraphQLString
           }
         },
-        resolve(root, args) {
+        resolve(parent, args, ctx, info) {
           return Db.models.person.findAll({ where: args });
         }
       },
       posts: {
         type: new GraphQLList(Post),
-        resolve(root, args) {
+        resolve(parent, args, ctx, info) {
           return Db.models.post.findAll({ where: args });
+        }
+      },
+      flights: {
+        type: new GraphQLList(flights),
+        resolve(parent, args, ctx, info){
+         return axiyo.get('https://api.spacexdata.com/v3/launches').then(res=>res.data)
         }
       }
     };
