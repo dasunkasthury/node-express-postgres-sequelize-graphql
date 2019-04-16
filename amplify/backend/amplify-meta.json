@@ -1,0 +1,20 @@
+{
+	"providers": {
+		"awscloudformation": {
+			"AuthRoleName": "graphqlplayground-20190416161850-authRole",
+			"UnauthRoleArn": "arn:aws:iam::038425135940:role/graphqlplayground-20190416161850-unauthRole",
+			"AuthRoleArn": "arn:aws:iam::038425135940:role/graphqlplayground-20190416161850-authRole",
+			"Region": "us-east-1",
+			"DeploymentBucketName": "graphqlplayground-20190416161850-deployment",
+			"UnauthRoleName": "graphqlplayground-20190416161850-unauthRole",
+			"StackName": "graphqlplayground-20190416161850",
+			"StackId": "arn:aws:cloudformation:us-east-1:038425135940:stack/graphqlplayground-20190416161850/feb52100-6034-11e9-90df-12545315cab6"
+		}
+	},
+	"auth": {
+		"cognitocc92733d": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation"
+		}
+	}
+}
